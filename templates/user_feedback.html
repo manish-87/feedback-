@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}User Feedback - {{ user.name }}{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <div>
+        <h1>Feedback from {{ user.name }}</h1>
+        <p style="color: #666;">{{ user.email }}</p>
+    </div>
+    <a href="{{ url_for('admin_dashboard') }}" style="color: #667eea; text-decoration: none;">← Back to Dashboard</a>
+</div>
+
+{% if feedbacks %}
+    {% for feedback in feedbacks %}
+    <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div style="font-size: 24px; font-weight: bold; color: #667eea;">
+                Rating: {{ feedback.rating }}/5
+            </div>
+            <div style="color: #666; font-size: 14px;">
+                {{ feedback.submitted_at.strftime('%Y-%m-%d %H:%M') }}
+            </div>
+        </div>
+        {% if feedback.comments %}
+        <div style="background: white; padding: 15px; border-radius: 6px; margin-top: 10px;">
+            <strong>Comments:</strong>
+            <p style="margin-top: 8px; color: #555;">{{ feedback.comments }}</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <div style="text-align: center; padding: 40px; color: #666;">
+        <p>No feedback submitted yet.</p>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .container {
+        max-width: 800px;
+    }
+</style>
+{% endblock %}
+

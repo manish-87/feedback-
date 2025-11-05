@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px; color: #4CAF50;">✓</div>
+    <h1 style="color: #4CAF50;">Thank You!</h1>
+    <p style="color: #666; margin: 20px 0;">Your feedback has been submitted successfully, {{ name }}.</p>
+    <p style="color: #666;">We appreciate your time and valuable input!</p>
+    <p style="color: #999; margin-top: 30px; font-size: 14px;">Redirecting to home page in <span id="countdown">3</span> seconds...</p>
+    <a href="{{ url_for('register') }}" class="btn" style="display: inline-block; width: auto; margin-top: 20px;">Go to Home Now</a>
+</div>
+
+<script>
+    let countdown = 3;
+    const countdownElement = document.getElementById('countdown');
+    
+    const timer = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+            clearInterval(timer);
+            window.location.href = "{{ url_for('register') }}";
+        }
+    }, 1000);
+</script>
+{% endblock %}
+
